@@ -7,5 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8086
 
-# CMD tail -f /dev/null
 CMD [ "timeflux", "-d", "examples/basic.yaml" ]
