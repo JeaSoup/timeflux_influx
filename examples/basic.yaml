@@ -1,0 +1,31 @@
+graphs:
+
+  - nodes:
+    - id: node_random
+      module: timeflux.nodes.random
+      class: Random
+      params:
+        columns: 5
+        rows_min: 1
+        rows_max: 10
+        value_min: 0
+        value_max: 5
+        seed: 1
+    - id: node_display
+      module: timeflux.nodes.debug
+      class: Display
+    - id: node_influx
+      module: timeflux_influx.nodes.influx_writer
+      class: InfluxWriter
+      params:
+        database: 'test'
+        measurement: 'random_test'
+        port: 8086
+        host: '192.168.1.229'
+
+    edges:
+    - source: node_random
+      target: node_display
+    - source: node_random
+      target: node_influx
+
