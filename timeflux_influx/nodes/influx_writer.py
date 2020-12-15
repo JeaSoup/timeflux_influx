@@ -2,6 +2,9 @@
 
 from timeflux.core.node import Node
 from influxdb import DataFrameClient, InfluxDBClient
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 
 class InfluxWriter(Node):
@@ -13,21 +16,22 @@ class InfluxWriter(Node):
         o (Port): Default output, provides DataFrame.
     """
 
-    def __init__(self, database, measurement, port=8086, host='localhost'):
-        """
-        Args:
-            host (string)
-            port (int)
-        """
+    def __init__(self, database, measurement, port=8086):
+   
         self._port = port
-        self._host = host
         self._database = database
         self._measurement = measurement
-        self._client = DataFrameClient(host=self._host, port=self._port, database= self._database)
-        if self._client:
-            self.logger.debug('Connection established - Host: ' + self._host + ' port: ' + str(self._port) + ' database ' + self._database)
+        self._username = os.getenv("DB_USER")
+        self._password = os.getenv("DB_PASSWORD")
+        self._host = os.getenv("DB_HOST")
+
+        self._client = DataFrameClient(host=self._host, port=self._port, database= self._database, username=self._username, password=self._password)
+        try:
+            self._client
+        except:
+            raise Exception("Could not connect to host, please review your client information.")
         else:
-            self.logger.debug('Something went wrong.')
+             self.logger.debug('Connection established to host!')
 
     def update(self):
         self.logger.debug('Writing to database..')

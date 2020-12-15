@@ -29,8 +29,9 @@ graphs:
       module: timeflux_influx.nodes.influx_writer
       class: InfluxWriter
       params:
-        database: 'bitalinoWriteTest'
-        measurement: 'bitalinoTest'
+        database: 'mmbox'
+        measurement: 'mmbox_bitalino'
+        port: 8086
     edges:
       - source: subscribe:bitalino
         target: DB

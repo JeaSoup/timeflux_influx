@@ -18,10 +18,9 @@ graphs:
       module: timeflux_influx.nodes.influx_writer
       class: InfluxWriter
       params:
-        database: 'test'
+        database: 'mmbox'
         measurement: 'random_test'
         port: 8086
-        host: '192.168.1.229'
 
     edges:
     - source: node_random
