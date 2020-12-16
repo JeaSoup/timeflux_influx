@@ -6,7 +6,7 @@ graphs:
       module: timeflux_bitalino.nodes.driver
       class: Bitalino
       params:
-        port: /dev/tty.BITalino-57-6B-DevB
+        port: /dev/rfcomm0
         rate: 1000
     - id: pub_bitalino
       module: timeflux.nodes.zmq

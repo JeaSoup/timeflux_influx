@@ -1,10 +1,20 @@
-FROM python:3.7
+FROM balenalib/raspberry-pi:buster
 
 WORKDIR /app
 COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update
+RUN apt-get update && apt-get install build-essential -y
 
-EXPOSE 8086
+RUN apt-get install python3.7 -y &&\
+    apt-get install python3-pip -
 
-CMD [ "timeflux", "-d", "examples/basic.yaml" ]
+RUN apt-get install libhdf5-dev -y &&\
+    apt-get install libblas-dev liblapack-dev libatlas-base-dev
+
+RUN pip3 install setuptools &&\
+    pip3 install timeflux &&\
+    pip3 install timeflux_bitalino &&\
+    pip3 install influxdb
+
+CMD [ "timeflux", "-d", "examples/test_influx_bitalino.yaml" ]
