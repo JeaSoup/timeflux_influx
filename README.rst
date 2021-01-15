@@ -1,4 +1,3 @@
 A Timeflux plugin for influxdb
 ==========================
-WORK IN PROGRESS!
-
+For further documentation check here: https://github.com/mmlabox/TeamSystems/wiki/Timeflux-InfluxDB-Plugin
